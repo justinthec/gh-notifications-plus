@@ -1,6 +1,6 @@
 # Github Notifications Plus
 ---------------------------------------
-####[Chrome extension link](https://chrome.google.com/webstore/detail/gefbijckpfchlmjhbckfmibggggomdnf)
+####[Chrome extension link](https://chrome.google.com/webstore/detail/ngkmdidliomkbbefjoboldmieohoabbb)
 
 ######Github Notifications Plus makes it easy for you to prioritize your most important tasks by identifying which notifications are @mentioning you.
 
