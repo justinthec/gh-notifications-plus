@@ -10,7 +10,10 @@
         "default_popup": "popup/popup.html",
         "default_title": "Github Notifications Plus"
     },
-    "icons": { "48": "popup/icon48.png" },
+    "icons": {
+        "48": "popup/icon48.png",
+        "128": "popup/icon128.png"
+    },
 
     "permissions": [
         "storage"
