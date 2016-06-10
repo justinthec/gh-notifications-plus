@@ -1,0 +1,7 @@
+.notification-item--mentioned {
+  background-color: #CCFF90;
+}
+
+.notification-item--mentioned a {
+  font-size: 1.5em;
+}
