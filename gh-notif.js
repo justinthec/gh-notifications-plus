@@ -20,7 +20,7 @@ $(function() {
     });
 
     fetchNotificationItems().forEach(function(item){
-      if item == null
+      if (item == null)
         return;
 
       let request = octo.repos(item.repoName)
@@ -43,7 +43,7 @@ function fetchNotificationItems() {
   let issues = $('li.issue-notification a').toArray();
   return pullRequests.concat(issues).map(function(notifLinkTag) {
     let hrefInfo = notifLinkTag.href.match(/https:\/\/github.com\/([^\/]+\/[^\/]+)\/(pull|issues)\/(\d+)/);
-    if hrefInfo == null
+    if (hrefInfo == null)
       return null;
     return {
       repoName: hrefInfo[1],
