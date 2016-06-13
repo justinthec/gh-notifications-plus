@@ -1,6 +1,3 @@
-// Copyright (c) 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
 $(function() {
   chrome.storage.sync.get({
     mentionText: '',
@@ -23,6 +20,9 @@ $(function() {
     });
 
     fetchNotificationItems().forEach(function(item){
+      if item == null
+        return;
+
       let request = octo.repos(item.repoName)
       if (item.itemType == 'pull') {
         request = request.pulls(item.itemId);
@@ -42,7 +42,9 @@ function fetchNotificationItems() {
   let pullRequests = $('li.pull-request-notification a').toArray();
   let issues = $('li.issue-notification a').toArray();
   return pullRequests.concat(issues).map(function(notifLinkTag) {
-    let hrefInfo = notifLinkTag.href.match(/https:\/\/github.com\/(\w+\/\w+)\/(pull|issues)\/(\d+)/);
+    let hrefInfo = notifLinkTag.href.match(/https:\/\/github.com\/([^\/]+\/[^\/]+)\/(pull|issues)\/(\d+)/);
+    if hrefInfo == null
+      return null;
     return {
       repoName: hrefInfo[1],
       itemType: hrefInfo[2],
