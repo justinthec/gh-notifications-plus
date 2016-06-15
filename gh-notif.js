@@ -52,19 +52,21 @@ function fetchNotificationItems() {
 function checkIfItemHasMention(item, mentionText, request) {
   request.fetch((err, val) => {
     if (err) { return; }
-    console.log('checking PR body');
     if (val.body && val.body.match(new RegExp(mentionText))) {
-      item.nodeRef.parentElement.parentElement.classList.add("notification-item--mentioned");
+      highlightItem(item);
     } else {
       request.comments.fetch((err, val) => {
         if (err) { return; }
-        console.log('checking comment bodies');
         val.forEach((comment) => {
           if (comment.body && comment.body.match(new RegExp(mentionText))) {
-            item.nodeRef.parentElement.parentElement.classList.add("notification-item--mentioned");
+            highlightItem(item);
           }
         });
       });
     }
   });
+}
+
+function highlightItem(item) {
+  item.nodeRef.parentElement.parentElement.classList.add("notification-item--mentioned");
 }
