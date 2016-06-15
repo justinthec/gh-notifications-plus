@@ -3,7 +3,7 @@
 
     "name": "Github Notifications Plus",
     "description": "This extension allows you to easily identify your most important notifications on Github",
-    "version": "1.0.2",
+    "version": "1.0.3",
 
     "browser_action": {
         "default_icon": "popup/icon48.png",
