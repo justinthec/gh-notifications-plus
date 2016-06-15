@@ -29,16 +29,15 @@
       <li class="tab"><a href="#AboutTab">About</a></li>
     </ul>
     <div id="SettingsTab" class="section section--body">
-      <form action="#">
-        <p>
-          <label for="mentionText">Mention Text</label>
-          <input name="mentionText" type="text" id="mentionText" placeholder="@username" />
-        </p>
-        <p>
-          <label for="paToken">Personal Access Token</label>
-          <input name="paToken" type="text" id="paToken" placeholder="Go to https://github.com/settings/tokens" />
-        </p>
-      </form>
+      <p>
+        <label for="mentionText">Mention Text</label>
+        <input name="mentionText" type="text" id="mentionText" placeholder="@username" />
+      </p>
+      <p>
+        <label for="paToken">Personal Access Token</label>
+        <input name="paToken" type="password" id="paToken" placeholder="Go to https://github.com/settings/tokens" />
+      </p>
+      <button id="saveButton" class="waves-effect waves-light btn">Save</button>
     </div>
     <div id="AboutTab" class="section section--body">
       <h5>About</h5>

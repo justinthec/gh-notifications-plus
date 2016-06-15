@@ -1,4 +1,4 @@
-var toastActive = false;
+let toastActive = false;
 function triggerToast () {
   if (!toastActive) {
     toastActive = true;
@@ -8,35 +8,29 @@ function triggerToast () {
   }
 }
 
-$(function() {
+$(() => {
   chrome.storage.sync.get({
     mentionText: '',
     paToken: ''
-  }, function(settings) {
+  }, (settings) => {
     $('#mentionText').val(settings.mentionText);
     $('#paToken').val(settings.paToken);
   });
 
-  $('input[name="mentionText"]').on('blur', function() {
-    let mentionText = $('input[name="mentionText"').val();
+  $('#saveButton').click(() => {
+    const mentionText = $('#mentionText').val();
+    const paToken = $('#paToken').val();
+
     chrome.storage.sync.set({
-      "mentionText": mentionText
-    }, function() {
+      'mentionText': mentionText,
+      'paToken': paToken
+    }, () => {
       triggerToast();
     });
   });
 
-  $('input[name="paToken"]').on('blur', function() {
-    let paToken = $('input[name="paToken"').val();
-    chrome.storage.sync.set({
-      "paToken": paToken 
-    }, function() {
-      triggerToast();
-    });
-  });
-
-  $('a.js-author-link').on('click', function() {
-    chrome.tabs.create({url: $(this).attr('href')});
+  $('a.js-author-link').click((event) => {
+    chrome.tabs.create({url: $(event.target).attr('href')});
     return false;
   });
 });
