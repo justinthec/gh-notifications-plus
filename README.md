@@ -4,7 +4,7 @@
 
 ![image](http://i.imgur.com/tC4l2D0.png)
 
-![image](https://cloud.githubusercontent.com/assets/2578036/15959714/0b467896-2eca-11e6-95b6-8608f226da48.png)
+![image](http://i.imgur.com/LUQTTCN.png?1)
 
 ---------
 
