@@ -21,15 +21,8 @@ $(() => {
 
     fetchNotificationItems().forEach((item) => {
       if (item === null) { return; }
-
-      let request = octo.repos(item.repoName)
-      if (item.itemType === 'pull') {
-        request = request.pulls(item.itemId);
-      } else {
-        request = request.issues(item.itemId);
-      }
-
-      checkIfItemHasMention(item, mentionText, request);
+      let repo = octo.repos(item.repoName)
+      checkIfItemHasMention(repo, item, mentionText);
     });
   });
 });
@@ -49,17 +42,30 @@ function fetchNotificationItems() {
   });
 }
 
-function checkIfItemHasMention(item, mentionText, request) {
-  request.fetch((err, val) => {
+function checkIfItemHasMention(repo, item, mentionText) {
+  const issue = repo.issues(item.itemId); // Both PRs and Issues have issue comments.
+  issue.fetch((err, result) => {
     if (err) { return; }
-    if (val.body && val.body.match(new RegExp(mentionText))) {
+    if (result.body && result.body.match(new RegExp(mentionText))) {
       highlightItem(item);
     } else {
-      request.comments.fetch((err, val) => {
+      issue.comments.fetch((err, result) => {
         if (err) { return; }
-        val.forEach((comment) => {
+        for (comment of result) {
           if (comment.body && comment.body.match(new RegExp(mentionText))) {
             highlightItem(item);
+            return;
+          }
+        }
+        
+        const diffComments = repo.pulls(item.itemId).comments;
+        diffComments.fetch((err, result) => {
+          if (err) { return; }
+          for (comment of result) {
+            if (comment.body && comment.body.match(new RegExp(mentionText))) {
+              highlightItem(item);
+              return;
+            }
           }
         });
       });
