@@ -10,6 +10,7 @@ $(() => {
       alert('Please set up both your Github Auth and @username in the settings.');
       return;
     }
+    const mentionPattern = new RegExp(mentionText, 'i');
 
     const octo = new Octokat({
       token: paToken
@@ -21,8 +22,8 @@ $(() => {
 
     fetchNotificationItems().forEach((item) => {
       if (item === null) { return; }
-      let repo = octo.repos(item.repoName)
-      checkIfItemHasMention(repo, item, mentionText);
+      const repo = octo.repos(item.repoName)
+      checkIfItemHasMention(repo, item, mentionPattern);
     });
   });
 });
@@ -42,32 +43,33 @@ function fetchNotificationItems() {
   });
 }
 
-function checkIfItemHasMention(repo, item, mentionText) {
+function checkIfItemHasMention(repo, item, mentionPattern) {
   const issue = repo.issues(item.itemId); // Both PRs and Issues have issue comments.
   issue.fetch((err, result) => {
     if (err) { return; }
-    if (result.body && result.body.match(new RegExp(mentionText))) {
+    if (result.body && result.body.match(mentionPattern)) {
       highlightItem(item);
     } else {
       issue.comments.fetch((err, result) => {
         if (err) { return; }
         for (comment of result) {
-          if (comment.body && comment.body.match(new RegExp(mentionText))) {
+          if (comment.body && comment.body.match(mentionPattern)) {
             highlightItem(item);
             return;
           }
         }
-        
-        const diffComments = repo.pulls(item.itemId).comments;
-        diffComments.fetch((err, result) => {
-          if (err) { return; }
-          for (comment of result) {
-            if (comment.body && comment.body.match(new RegExp(mentionText))) {
-              highlightItem(item);
-              return;
+        if (item.itemType === 'pull') {
+          const diffComments = repo.pulls(item.itemId).comments;
+          diffComments.fetch((err, result) => {
+            if (err) { return; }
+            for (comment of result) {
+              if (comment.body && comment.body.match(mentionPattern)) {
+                highlightItem(item);
+                return;
+              }
             }
-          }
-        });
+          });
+        }
       });
     }
   });
