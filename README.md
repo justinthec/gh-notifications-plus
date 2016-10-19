@@ -2,7 +2,7 @@
 
 ######Github Notifications Plus makes it easy for you to prioritize your most important tasks by identifying which notifications are @mentioning you.
 
-![image](http://i.imgur.com/2jcnVD4.png)
+![image](http://imgur.com/TZseUM1.png)
 
 ## Getting set up:
 
