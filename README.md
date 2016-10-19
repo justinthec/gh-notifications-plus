@@ -4,7 +4,15 @@
 
 ![image](http://i.imgur.com/tC4l2D0.png)
 
-![image](http://i.imgur.com/LUQTTCN.png?1)
+
+
+## Getting set up:
+
+1. Generate a Personal Access Token:
+    - Go to https://github.com/settings/tokens/new
+    - Under `Scopes` enable the `repo` scope and click `Generate token`
+2. Paste your access token into the Personal Access Token field in the Settings popup. ![image](http://i.imgur.com/LUQTTCN.png?1)
+3. Go to https://github.com/notifications like usual and PRs that you are mentioned directly in will be highlighted!
 
 ---------
 
